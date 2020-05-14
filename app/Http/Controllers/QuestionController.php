@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\Questions\QuestionResource;
 use App\Model\Question;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
@@ -18,7 +19,8 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        return Question::latest()->get();
+        $questions = Question::latest()->get();
+        return QuestionResource::collection($questions);
     }
 
 
@@ -50,7 +52,7 @@ class QuestionController extends Controller
      */
     public function show(Question $question)
     {
-        return $question;
+        return new QuestionResource($question);
     }
 
 
