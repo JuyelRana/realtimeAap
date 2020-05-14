@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Categories;
+namespace App\Http\Resources\Replies;
 
-use App\Http\Resources\Questions\QuestionResource;
-use App\Model\Question;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CategoryResource extends JsonResource
+class ReplyResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,9 +16,12 @@ class CategoryResource extends JsonResource
     {
         return [
             'path' => $this->path,
-            'name' => $this->name,
-            'questions'=> QuestionResource::collection($this->questions),
-            'id' => $this->id
+            'id' => $this->id,
+            'reply' => $this->body,
+            'question' => $this->question->title,
+            'user' => $this->user->name,
+            'reply_time' => $this->created_at->diffForHumans()
+
         ];
     }
 }

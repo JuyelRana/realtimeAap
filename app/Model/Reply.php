@@ -10,6 +10,8 @@ use App\Model\Like;
 
 class Reply extends Model
 {
+    protected $guarded = [];
+
     public function question()
     {
         return $this->belongsTo(Question::class);
@@ -23,5 +25,10 @@ class Reply extends Model
     public function likes()
     {
         return $this->hasMany(Like::class);
+    }
+
+    public function getPathAttribute()
+    {
+        return asset("api/questions/" . $this->question->slug . "/replies/$this->id");
     }
 }

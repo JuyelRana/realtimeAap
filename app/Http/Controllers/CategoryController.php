@@ -62,15 +62,15 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        $updated_category = false;
+        $isUpdated = false;
         try {
-            $updated_category = $category->update($request->all());
+            $isUpdated = $category->update($request->all());
             $message = 'Updated Successfully';
         } catch (QueryException $exception) {
             $message = $exception->getMessage();
         }
 
-        return response($message, $updated_category ? Response::HTTP_ACCEPTED : Response::HTTP_INTERNAL_SERVER_ERROR);
+        return response($message, $isUpdated ? Response::HTTP_ACCEPTED : Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 
     /**
@@ -81,14 +81,15 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        $isDeleted = false;
+
         try {
-            $category->delete();
+            $isDeleted = $category->delete();
             $message = 'Deleted Successfully';
 
         } catch (QueryException $exception) {
             $message = $exception->getMessage();
         }
-
-        return response($message, Response::HTTP_OK);
+        return response($message, $isDeleted ? Response::HTTP_OK : Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 }

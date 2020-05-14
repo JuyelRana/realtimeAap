@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\Replies\ReplyResource;
+use App\Model\Question;
 use App\Model\Reply;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class ReplyController extends Controller
 {
@@ -12,74 +16,83 @@ class ReplyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Question $question)
     {
-        //
+        $replies = $question->replies;
+        return ReplyResource::collection($replies);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Question $question, Request $request)
     {
-        //
+        $replies = null;
+
+        try {
+            $replies = $question->replies()->create($request->all());
+            $message = 'Added Successfully';
+        } catch (QueryException $exception) {
+            $message = $exception->getMessage();
+        }
+        return response($message, $replies ? Response::HTTP_CREATED : Response::HTTP_INTERNAL_SERVER_ERROR);
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Model\Reply  $reply
+     * @param \App\Model\Reply $reply
      * @return \Illuminate\Http\Response
      */
-    public function show(Reply $reply)
+    public function show(Question $question, Reply $reply)
     {
-        //
+        return new ReplyResource($reply);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Model\Reply  $reply
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Reply $reply)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Model\Reply  $reply
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Model\Reply $reply
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Reply $reply)
+    public function update(Question $question, Request $request, Reply $reply)
     {
-        //
+        $isUpdated = false;
+        try {
+            $isUpdated = $reply->update($request->all());
+            $message = 'Updated Successfully';
+        } catch (QueryException $exception) {
+            $message = $exception->getMessage();
+        }
+
+        return response($message, $isUpdated ? Response::HTTP_ACCEPTED : Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Model\Reply  $reply
+     * @param \App\Model\Reply $reply
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Reply $reply)
+    public function destroy(Question $question, Reply $reply)
     {
-        //
+        $isDeleted = false;
+
+        try {
+            $isDeleted = $reply->delete();
+            $message = 'Deleted Successfully';
+
+        } catch (QueryException $exception) {
+            $message = $exception->getMessage();
+        }
+
+        return response($message, $isDeleted ? Response::HTTP_OK : Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 }

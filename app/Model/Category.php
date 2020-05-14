@@ -25,4 +25,9 @@ class Category extends Model
         $slug = Str::slug($value);
         $this->attributes['slug'] = $slug . '-' . rand();
     }
+
+    public function questions()
+    {
+        return $this->hasMany(Question::class);
+    }
 }
