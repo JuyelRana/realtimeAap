@@ -65,7 +65,17 @@ class QuestionController extends Controller
      */
     public function update(Request $request, Question $question)
     {
-        //
+        $updated_question = false;
+
+        try {
+            $updated_question = $question->update($request->all());
+            $message = 'Updated Successfully';
+
+        } catch (QueryException $exception) {
+            $message = $exception->getMessage();
+        }
+        return response($message, $updated_question ? Response::HTTP_CREATED : Response::HTTP_INTERNAL_SERVER_ERROR);
+
     }
 
     /**
@@ -77,6 +87,14 @@ class QuestionController extends Controller
     public function destroy(Question $question)
     {
         $question->delete();
+
+        try {
+            $question->delete();
+            $message = 'Deleted Successfully';
+
+        } catch (QueryException $exception) {
+            $message = $exception->getMessage();
+        }
 
         return response(null, Response::HTTP_NO_CONTENT);
     }

@@ -6,16 +6,10 @@ use App\User;
 use App\Model\Reply;
 use App\Model\Category;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Question extends Model
 {
-//    protected $fillable = [
-//        'title',
-//        'slug',
-//        'body',
-//        'category_id',
-//        'user_id'
-//    ];
 
     protected $guarded = [];
 
@@ -42,5 +36,13 @@ class Question extends Model
     public function getPathAttribute()
     {
         return asset("api/questions/$this->slug");
+    }
+
+
+    public function setTitleAttribute($value)
+    {
+        $this->attributes['title'] = $value;
+        $slug = Str::slug($value);
+        $this->attributes['slug'] = $slug . '-' . rand();
     }
 }
