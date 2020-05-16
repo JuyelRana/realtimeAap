@@ -3,83 +3,42 @@
 namespace App\Http\Controllers;
 
 use App\Model\Like;
+use App\Model\Reply;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class LikeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function likeIt(Reply $reply)
     {
-        //
+        $isLiked = null;
+        try {
+            $isLiked = $reply->likes()->create([
+                'user_id' => 1
+            ]);
+            $message = 'New like added';
+        } catch (QueryException $exception) {
+            $message = $exception->getMessage();
+        }
+
+        return response($message, $isLiked ? Response::HTTP_CREATED : Response::HTTP_INTERNAL_SERVER_ERROR);
+
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function unLikeIt(Reply $reply)
     {
-        //
-    }
+        $isUnlike = false;
+        try {
+            $isUnlike = $reply->likes()->where([
+                'user_id' => 1
+            ])->first()->delete();
+            $message = 'Unliked Reply!';
+        }catch (QueryException $exception){
+            $message = $exception->getMessage();
+        }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        return response($message, $isUnlike ? Response::HTTP_OK : Response::HTTP_INTERNAL_SERVER_ERROR);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Model\Like  $like
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Like $like)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Model\Like  $like
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Like $like)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Model\Like  $like
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Like $like)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Model\Like  $like
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Like $like)
-    {
-        //
     }
 }
