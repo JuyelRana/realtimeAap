@@ -1,25 +1,27 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\Questions;
 
-use App\Http\Resources\Replies\ReplyResource;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\Questions\QuestionResource;
 use App\Model\Question;
-use App\Model\Reply;
-use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
+
+
 use Symfony\Component\HttpFoundation\Response;
 
-class ReplyController extends Controller
+class QuestionController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Question $question)
+    public function index()
     {
-        $replies = $question->replies;
-        return ReplyResource::collection($replies);
+        $questions = Question::latest()->get();
+        return QuestionResource::collection($questions);
     }
 
 
@@ -29,29 +31,29 @@ class ReplyController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Question $question, Request $request)
+    public function store(Request $request)
     {
-        $replies = null;
-
+        $question = null;
         try {
-            $replies = $question->replies()->create($request->all());
-            $message = 'Added Successfully';
+            $question = Question::create($request->all());
+            $message = 'Created Successfully';
+
         } catch (QueryException $exception) {
             $message = $exception->getMessage();
         }
-        return response($message, $replies ? Response::HTTP_CREATED : Response::HTTP_INTERNAL_SERVER_ERROR);
+        return response($message, $question ? Response::HTTP_CREATED : Response::HTTP_INTERNAL_SERVER_ERROR);
 
     }
 
     /**
      * Display the specified resource.
      *
-     * @param \App\Model\Reply $reply
+     * @param \App\Model\Question $question
      * @return \Illuminate\Http\Response
      */
-    public function show(Question $question, Reply $reply)
+    public function show(Question $question)
     {
-        return new ReplyResource($reply);
+        return new QuestionResource($question);
     }
 
 
@@ -59,34 +61,36 @@ class ReplyController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \App\Model\Reply $reply
+     * @param \App\Model\Question $question
      * @return \Illuminate\Http\Response
      */
-    public function update(Question $question, Request $request, Reply $reply)
+    public function update(Request $request, Question $question)
     {
         $isUpdated = false;
+
         try {
-            $isUpdated = $reply->update($request->all());
+            $isUpdated = $question->update($request->all());
             $message = 'Updated Successfully';
+
         } catch (QueryException $exception) {
             $message = $exception->getMessage();
         }
+        return response($message, $isUpdated ? Response::HTTP_CREATED : Response::HTTP_INTERNAL_SERVER_ERROR);
 
-        return response($message, $isUpdated ? Response::HTTP_ACCEPTED : Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Model\Reply $reply
+     * @param \App\Model\Question $question
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Question $question, Reply $reply)
+    public function destroy(Question $question)
     {
         $isDeleted = false;
 
         try {
-            $isDeleted = $reply->delete();
+            $isDeleted = $question->delete();
             $message = 'Deleted Successfully';
 
         } catch (QueryException $exception) {

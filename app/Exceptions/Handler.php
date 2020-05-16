@@ -3,7 +3,11 @@
 namespace App\Exceptions;
 
 use Exception;
+use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 
 class Handler extends ExceptionHandler
 {
@@ -29,7 +33,7 @@ class Handler extends ExceptionHandler
     /**
      * Report or log an exception.
      *
-     * @param  \Exception  $exception
+     * @param \Exception $exception
      * @return void
      *
      * @throws \Exception
@@ -42,14 +46,21 @@ class Handler extends ExceptionHandler
     /**
      * Render an exception into an HTTP response.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $exception
+     * @param \Illuminate\Http\Request $request
+     * @param \Exception $exception
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @throws \Exception
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof TokenInvalidException) {
+            return response()->json(['error' => 'Token is invalid!'], Response::HTTP_BAD_REQUEST);
+        } elseif ($exception instanceof TokenExpiredException) {
+            return response()->json(['error' => 'Token is expired!'], Response::HTTP_BAD_REQUEST);
+        } elseif ($exception instanceof JWTException) {
+            return response()->json(['error' => 'There is problem with your token'], Response::HTTP_BAD_REQUEST);
+        }
         return parent::render($request, $exception);
     }
 }

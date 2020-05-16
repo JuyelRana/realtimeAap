@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\Like;
 
+use App\Http\Controllers\Controller;
 use App\Model\Like;
 use App\Model\Reply;
 use Illuminate\Database\QueryException;
@@ -34,7 +35,7 @@ class LikeController extends Controller
                 'user_id' => 1
             ])->first()->delete();
             $message = 'Unliked Reply!';
-        }catch (QueryException $exception){
+        } catch (QueryException $exception) {
             $message = $exception->getMessage();
         }
 

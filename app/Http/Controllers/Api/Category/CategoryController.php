@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\Category;
 
+use App\Http\Controllers\Controller;
 use App\Http\Resources\Categories\CategoryResource;
 use App\Model\Category;
 use Illuminate\Database\QueryException;
