@@ -7,8 +7,7 @@
 
             <v-spacer></v-spacer>
 
-            <v-btn depressed v-for="(option,index) in options" :key="index" color="deep-purple accent-4"
-                   :to="option.route">
+            <v-btn text v-for="(option,index) in options" :key="index" :to="option.route" v-if="option.show">
                 <span>{{ option.name }}</span>
             </v-btn>
 
@@ -38,12 +37,21 @@
     export default {
         data: () => ({
             options: [
-                {name: 'Forum', route: '/forum'},
-                {name: 'Ask Question', route: '/question'},
-                {name: 'Category', route: '/category'},
-                {name: 'Login', route: '/login'}
+                {name: 'Forum', route: '/forum', show: true},
+                {name: 'Ask Question', route: '/question', show: User.loggedIn()},
+                {name: 'Category', route: '/category', show: User.loggedIn()},
+                {name: 'Sign Up', route: '/signup', show: !User.loggedIn()},
+                {name: 'Login', route: '/login', show: !User.loggedIn()},
+                {name: 'Logout', route: '/logout', show: User.loggedIn()}
             ],
         }),
+
+        created() {
+            // Listen the event
+            EventBus.$on('logout', () => {
+                User.logout();
+            })
+        }
     }
 </script>
 

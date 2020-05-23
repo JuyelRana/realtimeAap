@@ -7,12 +7,16 @@ import Login from "../components/login/Login";
 import Forum from "../components/Forum/Forum";
 import Question from "../components/Question/Question";
 import Category from "../components/Category/Category";
+import Signup from "../components/login/Signup";
+import Logout from "../components/login/Logout";
 
 const routes = [
     {path: '/login', component: Login},
-    {path: '/forum', component: Forum},
+    {path: '/forum', component: Forum, name: 'forum'},
     {path: '/category', component: Category},
-    {path: '/question', component: Question}
+    {path: '/question', component: Question},
+    {path: '/signup', component: Signup},
+    {path: '/logout', component: Logout},
 
 ]
 

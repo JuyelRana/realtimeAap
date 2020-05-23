@@ -17,8 +17,9 @@ class User {
         const username = res.data.user;
 
         if (Token.isValidToken(access_token)) {
-            console.log(access_token);
+            // console.log(access_token);
             AppStorage.store(username, access_token);
+            window.location = '/forum'
         }
     }
 
@@ -40,6 +41,7 @@ class User {
     // Logout a user
     logout() {
         AppStorage.clear();
+        window.location = '/forum'
     }
 
     // get the logged in user name
