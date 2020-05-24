@@ -35,9 +35,9 @@ class QuestionController extends Controller
     {
         $question = null;
         try {
-            $question = Question::create($request->all());
-            $message = 'Created Successfully';
-
+            $question = auth()->user()->questions()->create($request->all());
+//            $message = 'Created Successfully';
+            return response(new QuestionResource($question), Response::HTTP_CREATED);
         } catch (QueryException $exception) {
             $message = $exception->getMessage();
         }

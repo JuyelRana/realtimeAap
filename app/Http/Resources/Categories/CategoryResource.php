@@ -19,8 +19,9 @@ class CategoryResource extends JsonResource
         return [
             'path' => $this->path,
             'name' => $this->name,
-            'questions'=> QuestionResource::collection($this->questions),
+            'questions' => QuestionResource::collection($this->questions),
             'id' => $this->id
         ];
+
     }
 }

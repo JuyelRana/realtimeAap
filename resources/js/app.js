@@ -8,6 +8,15 @@ import Vuetify from 'vuetify';
 
 Vue.use(Vuetify);
 
+import VueSimplemde from 'vue-simplemde';
+
+Vue.use(VueSimplemde);
+
+import md from 'marked';
+
+window.md = md;
+
+
 import User from './Helpers/User';
 
 window.User = User;

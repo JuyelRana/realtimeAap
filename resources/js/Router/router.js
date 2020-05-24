@@ -9,10 +9,12 @@ import Question from "../components/Question/Question";
 import Category from "../components/Category/Category";
 import Signup from "../components/login/Signup";
 import Logout from "../components/login/Logout";
+import Read from "../components/Forum/Read";
 
 const routes = [
     {path: '/login', component: Login},
     {path: '/forum', component: Forum, name: 'forum'},
+    {path: '/api/questions/:slug', component: Read, name: 'read'},
     {path: '/category', component: Category},
     {path: '/question', component: Question},
     {path: '/signup', component: Signup},

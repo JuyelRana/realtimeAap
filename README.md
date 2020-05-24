@@ -7,3 +7,5 @@
 4. Likes
 5. User
 
+## Install MarkqownEditor
+``npm install vue-simplemde --save``

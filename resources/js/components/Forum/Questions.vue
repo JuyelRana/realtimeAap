@@ -3,13 +3,20 @@
         <v-card-title primary-title>
             <div>
                 <h3>
-                    <h3 class="headline mb-0">Title of question</h3>
-                    <div class="grey--text">Said 4 hours ago</div>
+                    <h3 class="headline mb-0">
+                        <router-link :to="data.path">
+                            {{ data.title }}
+                        </router-link>
+                    </h3>
+                    <div class="grey--text">
+                        {{ data.user }} said
+                        {{ data.created_at }}
+                    </div>
                 </h3>
             </div>
         </v-card-title>
         <v-card-text>
-            Body
+            {{ data.body }}
         </v-card-text>
 
     </v-card>
@@ -17,10 +24,13 @@
 
 <script>
     export default {
-        name: "Questions"
+        name: "Questions",
+        props: ['data'],
     }
 </script>
 
 <style scoped>
-
+    a {
+        text-decoration: none;
+    }
 </style>
