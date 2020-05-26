@@ -63,6 +63,10 @@ class User {
 
         return 'Unknown User!';
     }
+
+    own(id) {
+        return this.userId() == id;
+    }
 }
 
 export default User = new User();

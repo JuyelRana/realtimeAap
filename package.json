@@ -16,6 +16,7 @@
         "jquery": "^3.2",
         "laravel-mix": "^5.0.1",
         "lodash": "^4.17.13",
+        "material-design-icons-iconfont": "^5.0.1",
         "popper.js": "^1.12",
         "resolve-url-loader": "^2.3.1",
         "sass": "^1.20.1",
@@ -26,6 +27,7 @@
     "dependencies": {
         "vue-router": "^3.1.6",
         "vue-simplemde": "^1.0.6",
+        "vue-sweetalert2": "^3.0.5",
         "vuetify": "^2.2.28"
     }
 }

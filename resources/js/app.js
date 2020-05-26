@@ -2,9 +2,11 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+import 'material-design-icons-iconfont/dist/material-design-icons.css';
+
 import Vue from 'vue';
 
-import Vuetify from 'vuetify';
+import Vuetify from 'vuetify'
 
 Vue.use(Vuetify);
 
@@ -15,6 +17,13 @@ Vue.use(VueSimplemde);
 import md from 'marked';
 
 window.md = md;
+
+// Sweat Alert
+import VueSweetalert2 from 'vue-sweetalert2';
+
+import 'sweetalert2/dist/sweetalert2.min.css';
+
+Vue.use(VueSweetalert2);
 
 
 import User from './Helpers/User';
@@ -31,5 +40,8 @@ import router from './Router/router';
 const app = new Vue({
     el: '#app',
     vuetify: new Vuetify(),
-    router
+    router,
+    icons: {
+        iconfont: 'md',
+    }
 });

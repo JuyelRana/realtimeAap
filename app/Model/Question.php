@@ -12,7 +12,7 @@ use function foo\func;
 class Question extends Model
 {
 
-    protected $guarded = [];
+    protected $guarded = ['id', 'created_at'];
 
     public function getRouteKeyName()
     {
@@ -36,7 +36,7 @@ class Question extends Model
 
     public function getPathAttribute()
     {
-        return "api/questions/$this->slug";
+        return "questions/$this->slug";
     }
 
 

@@ -41,11 +41,8 @@
         }),
 
         created() {
-            const auth = {
-                headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}
-            }
 
-            axios.get('/api/categories/', auth)
+            axios.get('/api/categories/')
                 .then(res => {
                     res.data.data.forEach(category => {
                         this.categories.push(category);

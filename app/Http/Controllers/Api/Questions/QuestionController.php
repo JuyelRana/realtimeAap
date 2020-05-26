@@ -69,7 +69,10 @@ class QuestionController extends Controller
         $isUpdated = false;
 
         try {
-            $isUpdated = $question->update($request->all());
+            $isUpdated = $question->update([
+                'title' => $request->title,
+                'body' => $request->body
+            ]);
             $message = 'Updated Successfully';
 
         } catch (QueryException $exception) {

@@ -1,6 +1,14 @@
 <?php
 
 
-Route::view('/', 'home');
-Route::view('/{any}', 'home');
-Route::view('/{any}/{any}', 'home');
+Route::get('/', function () {
+    return view('home');
+});
+
+Route::get('/{any}', function () {
+    return view('home');
+});
+
+Route::get('/{any}/{any1}', function () {
+    return view('home');
+});

@@ -14,7 +14,7 @@ import Read from "../components/Forum/Read";
 const routes = [
     {path: '/login', component: Login},
     {path: '/forum', component: Forum, name: 'forum'},
-    {path: '/api/questions/:slug', component: Read, name: 'read'},
+    {path: '/questions/:slug', component: Read, name: 'read'},
     {path: '/category', component: Category},
     {path: '/question', component: Question},
     {path: '/signup', component: Signup},
@@ -26,6 +26,7 @@ const router = new VueRouter({
     routes,
     mode: 'history'
 })
+
 
 export default router;
 
