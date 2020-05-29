@@ -56,6 +56,12 @@
             save() {
                 axios.post('/api/questions/', this.form)
                     .then(res => {
+                        this.$swal(
+                            'Added!',
+                            'New Question Added Successfully!',
+                            'success'
+                        );
+
                         this.$router.push(res.data.path);
                     }).catch(error => {
                     this.errors = error.response.data.error;

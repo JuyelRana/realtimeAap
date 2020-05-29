@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Category;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Category\CategoryRequest;
 use App\Http\Resources\Categories\CategoryResource;
 use App\Model\Category;
 use Illuminate\Database\QueryException;
@@ -19,6 +20,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::latest()->get();
+
         return CategoryResource::collection($categories);
     }
 
@@ -29,15 +31,20 @@ class CategoryController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
         $category = null;
+
         try {
+
             $category = Category::create($request->all());
+
             $message = 'Created Successfully';
 
         } catch (QueryException $exception) {
+
             $message = $exception->getMessage();
+
         }
         return response($message, $category ? Response::HTTP_CREATED : Response::HTTP_INTERNAL_SERVER_ERROR);
     }

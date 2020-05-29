@@ -2,10 +2,10 @@
     <v-container fluid grid-list-md>
         <v-layout row wrap>
             <v-flex xs8>
-                <Questions v-for="question in allquestions" :key="question.path" :data="question"></Questions>
+                <Questions v-for="question in allquestions" :key="question.path" :question="question"></Questions>
             </v-flex>
             <v-flex xs4>
-                Sidebar
+                <Sidebar></Sidebar>
             </v-flex>
         </v-layout>
     </v-container>
@@ -13,15 +13,17 @@
 
 <script>
     import Questions from "./Questions";
+    import Sidebar from "./Sidebar";
 
     export default {
+        name: "Forum",
+        components: {
+            Sidebar,
+            Questions
+        },
         data: () => ({
             allquestions: {}
         }),
-        name: "Forum",
-        components: {
-            Questions
-        },
         created() {
             axios.get('/api/questions')
                 .then(res => {
