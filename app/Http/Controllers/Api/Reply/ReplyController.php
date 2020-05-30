@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Reply;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Reply\ReplyRequest;
 use App\Http\Resources\Replies\ReplyResource;
 use App\Model\Question;
 use App\Model\Reply;
@@ -30,7 +31,7 @@ class ReplyController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Question $question, Request $request)
+    public function store(Question $question, ReplyRequest $request)
     {
         $replies = null;
 
@@ -40,7 +41,7 @@ class ReplyController extends Controller
         } catch (QueryException $exception) {
             $message = $exception->getMessage();
         }
-        return response($message, $replies ? Response::HTTP_CREATED : Response::HTTP_INTERNAL_SERVER_ERROR);
+        return response(['reply' => new ReplyResource($replies), 'message' => $message], $replies ? Response::HTTP_CREATED : Response::HTTP_INTERNAL_SERVER_ERROR);
 
     }
 
