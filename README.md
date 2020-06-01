@@ -9,3 +9,7 @@
 
 ## Install MarkqownEditor
 ``npm install vue-simplemde --save``
+
+## Make Api Controller Command
+``php artisan make:controller Api\Notifications\NotificationController --api
+``

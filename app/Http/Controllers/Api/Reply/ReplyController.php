@@ -7,6 +7,7 @@ use App\Http\Requests\Reply\ReplyRequest;
 use App\Http\Resources\Replies\ReplyResource;
 use App\Model\Question;
 use App\Model\Reply;
+use App\Notifications\Reply\NewReplyNotification;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,15 +34,22 @@ class ReplyController extends Controller
      */
     public function store(Question $question, ReplyRequest $request)
     {
-        $replies = null;
+        $reply = null;
 
         try {
-            $replies = $question->replies()->create($request->all());
+            $reply = $question->replies()->create($request->all());
+
+            $user = $question->user;
+
+            if ($reply->user_id !== $question->user_id) {
+                $user->notify(new NewReplyNotification($reply));
+            }
+
             $message = 'Added Successfully';
         } catch (QueryException $exception) {
             $message = $exception->getMessage();
         }
-        return response(['reply' => new ReplyResource($replies), 'message' => $message], $replies ? Response::HTTP_CREATED : Response::HTTP_INTERNAL_SERVER_ERROR);
+        return response(['reply' => new ReplyResource($reply), 'message' => $message], $reply ? Response::HTTP_CREATED : Response::HTTP_INTERNAL_SERVER_ERROR);
 
     }
 

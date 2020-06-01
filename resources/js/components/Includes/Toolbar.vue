@@ -7,6 +7,8 @@
 
             <v-spacer></v-spacer>
 
+            <AppNotification v-if="loggedIn"></AppNotification>
+
             <v-btn text v-for="(option,index) in options" :key="index" :to="option.route" v-if="option.show">
                 <span>{{ option.name }}</span>
             </v-btn>
@@ -21,8 +23,12 @@
 
 
                 <v-list>
-                    <v-list-item v-for="(option,index) in options" :key="index" @click="() => {}">
-                        <v-list-item-title :to="option.route">
+                    <v-list-item
+                        v-for="(option,index) in options"
+                        :key="index" @click=""
+                        :to="option.route"
+                        v-if="option.show">
+                        <v-list-item-title>
                             {{ option.name }}
                         </v-list-item-title>
                     </v-list-item>
@@ -34,7 +40,10 @@
 </template>
 
 <script>
+    import AppNotification from "./AppNotification";
+
     export default {
+        components: {AppNotification},
         data: () => ({
             options: [
                 {name: 'Forum', route: '/forum', show: true},
@@ -44,6 +53,7 @@
                 {name: 'Login', route: '/login', show: !User.loggedIn()},
                 {name: 'Logout', route: '/logout', show: User.loggedIn()}
             ],
+            loggedIn: User.loggedIn(),
         }),
 
         created() {

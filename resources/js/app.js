@@ -32,7 +32,7 @@ window.User = User;
 
 window.EventBus = new Vue();
 
-Vue.component('AppHome', require('./components/AppHome').default);
+Vue.component('AppHome', require('./components/Includes/AppHome').default);
 
 import router from './Router/router';
 

@@ -11,11 +11,18 @@ Route::group(['namespace' => 'Api\Auth', 'as' => 'api.', 'prefix' => 'auth'], fu
 });
 
 Route::group(['namespace' => 'Api', 'middleware' => 'jwt'], function () {
+
     Route::apiResource('/questions', 'Questions\QuestionController');
+
     Route::apiResource('/categories', 'Category\CategoryController');
+
     Route::apiResource('/questions/{question}/replies', 'Reply\ReplyController');
+
     Route::post('/like/{reply}', 'Like\LikeController@likeIt')->name('like.add');
     Route::delete('/like/{reply}', 'Like\LikeController@unLikeIt')->name('like.delete');
+
+    Route::post('/notifications', 'Notifications\NotificationController@index');
+    Route::post('/markAsRead', 'Notifications\NotificationController@markAsRead');
 });
 
 
