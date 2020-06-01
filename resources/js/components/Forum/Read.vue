@@ -3,7 +3,7 @@
         <EditQuestion :question=question v-if="editing"></EditQuestion>
         <ShowQuestion :question=question v-else></ShowQuestion>
         <v-container>
-            <Replies :replies="question.replies"></Replies>
+            <Replies :question="question"></Replies>
             <NewReply :questionSlug="question.slug"></NewReply>
         </v-container>
     </div>
@@ -19,10 +19,12 @@
     export default {
         name: "Read",
         components: {NewReply, Replies, EditQuestion, ShowQuestion},
-        data: () => ({
-            question: null,
-            editing: false
-        }),
+        data() {
+            return {
+                question: null,
+                editing: false,
+            }
+        },
         created() {
             this.listenEditQuestion();
             this.listenCancelEditing();

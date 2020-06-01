@@ -14,8 +14,8 @@ Route::group(['namespace' => 'Api', 'middleware' => 'jwt'], function () {
     Route::apiResource('/questions', 'Questions\QuestionController');
     Route::apiResource('/categories', 'Category\CategoryController');
     Route::apiResource('/questions/{question}/replies', 'Reply\ReplyController');
-    Route::post('/like/{reply}', 'Like\LikeController@likeIt');
-    Route::delete('/like/{reply}', 'Like\LikeController@unLikeIt');
+    Route::post('/like/{reply}', 'Like\LikeController@likeIt')->name('like.add');
+    Route::delete('/like/{reply}', 'Like\LikeController@unLikeIt')->name('like.delete');
 });
 
 

@@ -16,7 +16,7 @@ class LikeController extends Controller
         $isLiked = null;
         try {
             $isLiked = $reply->likes()->create([
-                'user_id' => 1
+                'user_id' => auth()->id()
             ]);
             $message = 'New like added';
         } catch (QueryException $exception) {
@@ -32,7 +32,7 @@ class LikeController extends Controller
         $isUnlike = false;
         try {
             $isUnlike = $reply->likes()->where([
-                'user_id' => 1
+                'user_id' => auth()->id()
             ])->first()->delete();
             $message = 'Unliked Reply!';
         } catch (QueryException $exception) {

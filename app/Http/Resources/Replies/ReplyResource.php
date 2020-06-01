@@ -18,10 +18,11 @@ class ReplyResource extends JsonResource
             'path' => $this->path,
             'id' => $this->id,
             'reply' => $this->body,
-            'question' => $this->question->title,
+            'question' => $this->question,
             'user' => $this->user->name,
             'user_id' => $this->user_id,
-            'likes' => $this->likes,
+            'like_count' => $this->likes->count(),
+            'liked' => !!$this->likes->where('user_id', auth()->id())->count(),
             'reply_time' => $this->created_at->diffForHumans()
 
         ];

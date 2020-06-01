@@ -33,18 +33,23 @@
         name: "EditQuestion",
         components: {VueSimplemde},
         props: ['question'],
-        data: () => ({
-            form: {
-                title: null,
-                body: null,
+        data() {
+            return {
+                form: {
+                    title: null,
+                    body: null,
+                },
+                beforeEditQuestion: null,
             }
-        }),
+        },
 
         mounted() {
             this.form = this.question;
+            this.beforeEditQuestion = this.question;
         },
         methods: {
             cancel() {
+                this.question = this.beforeEditQuestion;
                 EventBus.$emit('cancelEditing');
             },
             update() {

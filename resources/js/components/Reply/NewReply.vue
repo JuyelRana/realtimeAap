@@ -25,9 +25,7 @@
 
         methods: {
             submit() {
-                const reply = this.body;
-                this.body = '';
-                axios.post(`/api/questions/${this.questionSlug}/replies`, {body: reply})
+                axios.post(`/api/questions/${this.questionSlug}/replies`, {body: this.body})
                     .then(response => {
                         this.$swal(
                             'Added!',
@@ -37,6 +35,8 @@
                         EventBus.$emit('newReply', response.data.reply);
 
                         window.scrollTo(0, 0);
+
+                        this.body = '';
 
                     }).catch(error => {
                     this.reply_error = error.response.data.errors.body[0];
