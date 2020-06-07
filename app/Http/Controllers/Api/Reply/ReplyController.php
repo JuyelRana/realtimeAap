@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Reply;
 
+use App\Events\Reply\DeleteReplyEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Reply\ReplyRequest;
 use App\Http\Resources\Replies\ReplyResource;
@@ -77,6 +78,7 @@ class ReplyController extends Controller
         $isUpdated = false;
         try {
             $isUpdated = $reply->update($request->all());
+
             $message = 'Updated Successfully';
         } catch (QueryException $exception) {
             $message = $exception->getMessage();
@@ -97,6 +99,9 @@ class ReplyController extends Controller
 
         try {
             $isDeleted = $reply->delete();
+
+            broadcast(new DeleteReplyEvent($reply->id))->toOthers();
+
             $message = 'Deleted Successfully';
 
         } catch (QueryException $exception) {

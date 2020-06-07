@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Replies;
 
+use App\Http\Resources\Questions\QuestionResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ReplyResource extends JsonResource

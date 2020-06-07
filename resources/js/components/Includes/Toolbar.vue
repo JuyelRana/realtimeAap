@@ -47,7 +47,7 @@
         data: () => ({
             options: [
                 {name: 'Forum', route: '/forum', show: true},
-                {name: 'Ask Question', route: '/question', show: User.loggedIn()},
+                {name: 'Ask Question', route: '/create-question', show: User.loggedIn()},
                 {name: 'Category', route: '/category', show: User.loggedIn()},
                 {name: 'Sign Up', route: '/signup', show: !User.loggedIn()},
                 {name: 'Login', route: '/login', show: !User.loggedIn()},

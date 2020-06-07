@@ -19,11 +19,11 @@
                 </v-list-item>
                 <v-divider></v-divider>
 
-                <v-list-item
-                    v-for="(item, index) in read"
-                    :key="item.id">
-                    <v-list-item-title class="green--text">{{ item.question }}</v-list-item-title>
-                </v-list-item>
+                <!--                <v-list-item-->
+                <!--                    v-for="(item, index) in read"-->
+                <!--                    :key="item.id">-->
+                <!--                    <v-list-item-title class="green&#45;&#45;text">{{ item.question }}</v-list-item-title>-->
+                <!--                </v-list-item>-->
             </v-list>
         </v-menu>
     </div>
@@ -42,7 +42,8 @@
 
         created() {
             if (User.loggedIn()) {
-                this.getNotifications()
+                this.getNotifications();
+                this.notifyUser();
             }
         },
         computed: {
@@ -54,7 +55,7 @@
             getNotifications() {
                 axios.post('/api/notifications')
                     .then(response => {
-                        console.log(response.data.unRead)
+                        // console.log(response.data.unRead)
                         this.read = response.data.read;
                         this.unRead = response.data.unRead;
                         this.unReadCount = response.data.unRead.length;
@@ -67,9 +68,18 @@
                         this.unRead.splice(notification, 1);
                         this.read.push(notification);
                         this.unReadCount--;
+                        // this.$router.push(notification.path);
                     }).catch(error => {
                     console.log(error.response.data);
                 })
+            },
+            // Notify to the user
+            notifyUser() {
+                Echo.private('App.User.' + User.userId())
+                    .notification((notification) => {
+                        this.unRead.unshift(notification);
+                        this.unReadCount++;
+                    });
             }
         }
     }

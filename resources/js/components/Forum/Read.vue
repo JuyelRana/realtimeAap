@@ -11,8 +11,8 @@
 </template>
 
 <script>
-    import ShowQuestion from "./ShowQuestion";
-    import EditQuestion from "./EditQuestion";
+    import ShowQuestion from "../Question/ShowQuestion";
+    import EditQuestion from "../Question/EditQuestion";
     import Replies from "../Reply/Replies";
     import NewReply from "../Reply/NewReply";
 

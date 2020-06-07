@@ -2,36 +2,67 @@
     <v-container fluid grid-list-md>
         <v-layout row wrap>
             <v-flex xs8>
-                <Questions v-for="question in allquestions" :key="question.path" :question="question"></Questions>
+                <v-toolbar color="indigo" dark dense v-if="hasCategory">
+                    <v-toolbar-title>{{ category.name }}</v-toolbar-title>
+                </v-toolbar>
+
+                <Questions
+                    v-for="question in allquestions"
+                    :key="question.path"
+                    :question="question"
+                    v-if="allquestions.length > 0">
+                </Questions>
+
+                <NotFound v-if="allquestions.length === 0"></NotFound>
             </v-flex>
+
             <v-flex xs4>
                 <Sidebar></Sidebar>
             </v-flex>
+
         </v-layout>
     </v-container>
 </template>
 
 <script>
-    import Questions from "./Questions";
-    import Sidebar from "./Sidebar";
+    import Questions from "../Question/Questions";
+    import Sidebar from "../Includes/Sidebar";
+    import NotFound from "../partials/NotFound";
 
     export default {
         name: "Forum",
         components: {
+            NotFound,
             Sidebar,
             Questions
         },
         data: () => ({
-            allquestions: {}
+            allquestions: {},
+            category: {},
+            hasCategory: false,
         }),
         created() {
-            axios.get('/api/questions')
-                .then(res => {
-                    // console.log(res.data.data)
-                    this.allquestions = res.data.data
-                }).catch(error => {
-                console.log(error.response.data)
-            });
+            this.getQuestions();
+            this.listenQuestionsByCategory();
+        },
+        methods: {
+            listenQuestionsByCategory() {
+                EventBus.$on('questionsByCategory', (category) => {
+                    if (category !== null) {
+                        this.allquestions = category.questions;
+                        this.category = category;
+                        this.hasCategory = true;
+                    }
+                });
+            },
+            getQuestions() {
+                axios.get('/api/questions')
+                    .then(res => {
+                        this.allquestions = res.data.data;
+                    }).catch(error => {
+                    console.log(error.response.data)
+                });
+            }
         }
     }
 </script>

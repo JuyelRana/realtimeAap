@@ -16,7 +16,8 @@ class Category extends Model
 
     public function getPathAttribute()
     {
-        return asset("api/categories/$this->slug");
+        return "categories/$this->slug";
+//        return asset("api/categories/$this->slug");
     }
 
     public function setNameAttribute($value)
