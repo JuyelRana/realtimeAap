@@ -30,6 +30,7 @@
 </template>
 
 <script>
+
     export default {
         name: "AppNotification",
         data() {
@@ -59,7 +60,7 @@
                         this.read = response.data.read;
                         this.unRead = response.data.unRead;
                         this.unReadCount = response.data.unRead.length;
-                    })
+                    }).catch(error => Exception.handle(error))
             },
 
             readNotification(notification) {
@@ -80,7 +81,7 @@
                         this.unRead.unshift(notification);
                         this.unReadCount++;
                     });
-            }
+            },
         }
     }
 </script>

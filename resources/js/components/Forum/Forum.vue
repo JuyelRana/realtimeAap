@@ -28,6 +28,7 @@
     import Questions from "../Question/Questions";
     import Sidebar from "../Includes/Sidebar";
     import NotFound from "../partials/NotFound";
+    import Exception from "../../Helpers/Exception";
 
     export default {
         name: "Forum",
@@ -60,7 +61,7 @@
                     .then(res => {
                         this.allquestions = res.data.data;
                     }).catch(error => {
-                    console.log(error.response.data)
+                    Exception.handle(error);
                 });
             }
         }

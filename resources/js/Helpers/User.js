@@ -4,6 +4,8 @@ import AppStorage from "./AppStorage";
 class User {
     loginData(data, errors) {
 
+        console.log(data)
+
         axios.post('/api/auth/login', data)
             .then(res => this.responseAfterLogin(res))
             .catch(error => {
@@ -14,6 +16,7 @@ class User {
     responseAfterLogin(res) {
 
         const access_token = res.data.access_token;
+        // console.log(access_token);
         const username = res.data.user;
 
         if (Token.isValidToken(access_token)) {
@@ -26,8 +29,10 @@ class User {
     // Checking a token has or not
     hasToken() {
         const storedToken = AppStorage.getToken();
+
+
         if (storedToken) {
-            return Token.isValidToken(storedToken) ? true : false
+            return Token.isValidToken(storedToken) ? true : this.logout();
         }
 
         return false;
@@ -41,7 +46,8 @@ class User {
     // Logout a user
     logout() {
         AppStorage.clear();
-        window.location = '/forum'
+        window.location = '/login'
+        // window.location = '/forum'
     }
 
     // get the logged in user name

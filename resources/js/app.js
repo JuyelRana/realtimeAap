@@ -25,10 +25,17 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 
 Vue.use(VueSweetalert2);
 
+import LaravelPermissions from 'laravel-permissions';
+
+Vue.use(LaravelPermissions);
 
 import User from './Helpers/User';
 
 window.User = User;
+
+import Exception from "./Helpers/Exception";
+
+window.Exception = Exception;
 
 window.EventBus = new Vue();
 

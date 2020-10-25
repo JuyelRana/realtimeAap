@@ -100,6 +100,7 @@ return [
     | Notice: If you set this to null you should remove 'exp' element from 'required_claims' list.
     |
     */
+//    token is alive for 30 days (1440 mins = 1 day)
 
     'ttl' => env('JWT_TTL', 1440 * 30),
 

@@ -4,7 +4,7 @@
         <ShowQuestion :question=question v-else></ShowQuestion>
         <v-container>
             <Replies :question="question"></Replies>
-            <NewReply :questionSlug="question.slug"></NewReply>
+            <NewReply v-if="loggedIn" :questionSlug="question.slug"></NewReply>
         </v-container>
     </div>
 
@@ -29,6 +29,12 @@
             this.listenEditQuestion();
             this.listenCancelEditing();
             this.getQuestion();
+        },
+
+        computed: {
+            loggedIn() {
+                return User.loggedIn();
+            }
         },
 
         methods: {

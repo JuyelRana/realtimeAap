@@ -56,6 +56,7 @@
             save() {
                 axios.post('/api/questions/', this.form)
                     .then(res => {
+                        // console.log(res.data)
                         this.$swal(
                             'Added!',
                             'New Question Added Successfully!',
