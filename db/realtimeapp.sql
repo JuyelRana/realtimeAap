@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jul 28, 2020 at 09:12 AM
--- Server version: 10.4.10-MariaDB
--- PHP Version: 7.3.12
+-- Generation Time: Dec 23, 2020 at 10:24 PM
+-- Server version: 5.7.26
+-- PHP Version: 7.1.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -43,11 +43,11 @@ CREATE TABLE IF NOT EXISTS `categories` (
 --
 
 INSERT INTO `categories` (`id`, `name`, `slug`, `created_at`, `updated_at`) VALUES
-(1, 'nulla', 'nulla', '2020-06-22 04:52:02', '2020-06-22 04:52:02'),
+(1, 'nulla', 'nulla-24166354', '2020-06-22 04:52:02', '2020-10-25 15:46:34'),
 (2, 'quasi', 'quasi', '2020-06-22 04:52:02', '2020-06-22 04:52:02'),
 (3, 'ipsum', 'ipsum', '2020-06-22 04:52:02', '2020-06-22 04:52:02'),
 (4, 'nihil', 'nihil', '2020-06-22 04:52:02', '2020-06-22 04:52:02'),
-(5, 'natus', 'natus', '2020-06-22 04:52:02', '2020-06-22 04:52:02');
+(5, 'natus2', 'natus2-41510965', '2020-06-22 04:52:02', '2020-10-25 15:46:46');
 
 -- --------------------------------------------------------
 
@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `failed_jobs` (
   `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS `likes` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `likes`
@@ -136,7 +136,10 @@ INSERT INTO `likes` (`id`, `reply_id`, `user_id`, `created_at`, `updated_at`) VA
 (47, 47, 5, '2020-06-22 04:52:03', '2020-06-22 04:52:03'),
 (48, 48, 4, '2020-06-22 04:52:03', '2020-06-22 04:52:03'),
 (49, 49, 3, '2020-06-22 04:52:03', '2020-06-22 04:52:03'),
-(50, 50, 1, '2020-06-22 04:52:03', '2020-06-22 04:52:03');
+(50, 50, 1, '2020-06-22 04:52:03', '2020-06-22 04:52:03'),
+(51, 9, 8, '2020-10-25 15:46:20', '2020-10-25 15:46:20'),
+(53, 53, 9, '2020-12-23 16:14:30', '2020-12-23 16:14:30'),
+(54, 54, 9, '2020-12-23 16:15:03', '2020-12-23 16:15:03');
 
 -- --------------------------------------------------------
 
@@ -191,7 +194,9 @@ CREATE TABLE IF NOT EXISTS `notifications` (
 --
 
 INSERT INTO `notifications` (`id`, `type`, `notifiable_type`, `notifiable_id`, `data`, `read_at`, `created_at`, `updated_at`) VALUES
-('43644809-d32b-4d56-96ea-3031e3d06910', 'App\\Notifications\\Reply\\NewReplyNotification', 'App\\User', 5, '{\"replyBy\":\"Md Juyel Rana\",\"question\":\"Quam a temporibus velit recusandae fugiat omnis.\",\"path\":\"questions\\/quam-a-temporibus-velit-recusandae-fugiat-omnis\"}', NULL, '2020-06-22 04:56:31', '2020-06-22 04:56:31');
+('43644809-d32b-4d56-96ea-3031e3d06910', 'App\\Notifications\\Reply\\NewReplyNotification', 'App\\User', 5, '{\"replyBy\":\"Md Juyel Rana\",\"question\":\"Quam a temporibus velit recusandae fugiat omnis.\",\"path\":\"questions\\/quam-a-temporibus-velit-recusandae-fugiat-omnis\"}', NULL, '2020-06-22 04:56:31', '2020-06-22 04:56:31'),
+('88344aaa-312e-4d28-a0da-02330294ad6b', 'App\\Notifications\\Reply\\NewReplyNotification', 'App\\User', 1, '{\"replyBy\":\"Rana\",\"question\":\"Nisi distinctio voluptas vel deserunt maiores a vitae.\",\"path\":\"questions\\/nisi-distinctio-voluptas-vel-deserunt-maiores-a-vitae\"}', NULL, '2020-10-25 15:47:33', '2020-10-25 15:47:33'),
+('ed3b8eb2-9bee-4ab2-ad98-fd75f8b09b66', 'App\\Notifications\\Reply\\NewReplyNotification', 'App\\User', 7, '{\"replyBy\":\"Md Juyel\",\"question\":\"This is question from mjuyelrana@gmail.com\",\"path\":\"questions\\/this-is-question-from-mjuyelrana-at-gmailcom-875352825\"}', NULL, '2020-12-23 16:13:46', '2020-12-23 16:13:46');
 
 -- --------------------------------------------------------
 
@@ -224,7 +229,7 @@ CREATE TABLE IF NOT EXISTS `questions` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `questions`
@@ -240,7 +245,9 @@ INSERT INTO `questions` (`id`, `title`, `slug`, `body`, `category_id`, `user_id`
 (7, 'Repellendus et dolores nam repudiandae distinctio et.', 'repellendus-et-dolores-nam-repudiandae-distinctio-et', 'Nobis eius neque alias dolores et est. Quia consectetur expedita id quia.', 2, 3, '2020-06-22 04:52:02', '2020-06-22 04:52:02'),
 (8, 'Nulla quis est quia quis sapiente ex maiores.', 'nulla-quis-est-quia-quis-sapiente-ex-maiores', 'Praesentium nostrum excepturi qui est qui. Id et odio voluptas ea omnis. Odit sint libero perspiciatis aut id eveniet velit. Praesentium ex voluptas aut vel.', 2, 2, '2020-06-22 04:52:02', '2020-06-22 04:52:02'),
 (9, 'Et ea odit in inventore.', 'et-ea-odit-in-inventore', 'Ipsa omnis occaecati deserunt culpa autem eaque. Reiciendis maiores dolores ducimus non sed quidem. Aliquam nostrum possimus impedit non. Adipisci itaque eos qui modi aut voluptatem.', 1, 5, '2020-06-22 04:52:02', '2020-06-22 04:52:02'),
-(10, 'Nisi distinctio voluptas vel deserunt maiores a vitae.', 'nisi-distinctio-voluptas-vel-deserunt-maiores-a-vitae', 'Dolores ipsum magni blanditiis voluptates error. Quod accusantium rerum aut doloribus voluptatem eligendi. Temporibus aliquam et pariatur nam et sit provident.', 3, 1, '2020-06-22 04:52:02', '2020-06-22 04:52:02');
+(10, 'Nisi distinctio voluptas vel deserunt maiores a vitae.', 'nisi-distinctio-voluptas-vel-deserunt-maiores-a-vitae', 'Dolores ipsum magni blanditiis voluptates error. Quod accusantium rerum aut doloribus voluptatem eligendi. Temporibus aliquam et pariatur nam et sit provident.', 3, 1, '2020-06-22 04:52:02', '2020-06-22 04:52:02'),
+(11, 'Test Question', 'test-question-6262878', 'What is your problem![](http://)', 3, 8, '2020-10-25 15:49:04', '2020-10-25 15:49:04'),
+(12, 'This is question from mjuyelrana@gmail.com', 'this-is-question-from-mjuyelrana-at-gmailcom-875352825', 'What is your name ?', 1, 7, '2020-12-23 16:12:59', '2020-12-23 16:12:59');
 
 -- --------------------------------------------------------
 
@@ -258,7 +265,7 @@ CREATE TABLE IF NOT EXISTS `replies` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `replies_question_id_foreign` (`question_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `replies`
@@ -314,7 +321,8 @@ INSERT INTO `replies` (`id`, `body`, `question_id`, `user_id`, `created_at`, `up
 (47, 'Alias facilis quis rerum tempore ea. Est doloremque architecto minima voluptate. Qui consequatur dolore sunt ipsam. Repellat in provident amet.', 10, 2, '2020-06-22 04:52:03', '2020-06-22 04:52:03'),
 (48, 'Nihil aliquam odio ipsa repudiandae et. Voluptas totam mollitia esse aut est totam. Iste quidem voluptatum aliquam. Voluptatum quod tempore voluptas cumque.', 10, 5, '2020-06-22 04:52:03', '2020-06-22 04:52:03'),
 (49, 'Et earum fuga voluptate. Aut et cumque sit est. Minus nostrum quis eveniet sit. Id consequatur explicabo est quis architecto harum. Praesentium at odio doloremque laudantium quisquam.', 9, 4, '2020-06-22 04:52:03', '2020-06-22 04:52:03'),
-(50, 'Dolorem fugiat ratione et veniam. Illo aut ullam dolorum perspiciatis. Reprehenderit quibusdam et suscipit.', 5, 1, '2020-06-22 04:52:03', '2020-06-22 04:52:03');
+(50, 'Dolorem fugiat ratione et veniam. Illo aut ullam dolorum perspiciatis. Reprehenderit quibusdam et suscipit.', 5, 1, '2020-06-22 04:52:03', '2020-06-22 04:52:03'),
+(53, 'My name is Juyel Rana.\nWhat is your name?', 12, 9, '2020-12-23 16:13:44', '2020-12-23 16:13:44');
 
 -- --------------------------------------------------------
 
@@ -334,7 +342,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
@@ -346,7 +354,9 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 (3, 'Dr. Christ Cummings', 'wkirlin@example.net', '2020-06-22 04:52:02', '$2y$10$NuhW84xeuAw3KzNbDZJsLOb4tKU7oGEOW4nP9S/oQ2eDSa9pPZd1m', 'STeFvmVPyM', '2020-06-22 04:52:02', '2020-06-22 04:52:02'),
 (4, 'Donnie Schamberger', 'zella87@example.com', '2020-06-22 04:52:02', '$2y$10$Sr29hstk3J.3ZfHU8xS/BOkwl7qpmMxqfhufYpTp/Ack5YLbPqw1C', 'U6TJ5kHj3b', '2020-06-22 04:52:02', '2020-06-22 04:52:02'),
 (5, 'Tania Lesch', 'haylee.schinner@example.org', '2020-06-22 04:52:02', '$2y$10$wKhG91elA6MnLhJkxTnIjOrT7F2TUuaXVGKF8SY2H9EoWCo2gd.b2', 'nzNkflWCDI', '2020-06-22 04:52:02', '2020-06-22 04:52:02'),
-(6, 'Md Juyel Rana', 'mjuyelrana@gmail.com', NULL, '$2y$10$VAKuptFrcW42FuIkRCqcou0x4GN3t4vLDidRzMp1EzQXllmq7cN8O', NULL, '2020-06-22 04:55:14', '2020-06-22 04:55:14');
+(7, 'Md Juyel Rana', 'mjuyelrana@gmail.com', NULL, '$2y$12$jVgbwbCRCmLo9RI8s3daB.cshK3yW3HG9.8UmpBvQ12SyaSpNAWGG', NULL, '2020-10-11 12:17:06', '2020-10-11 12:17:06'),
+(8, 'Rana', 'rana@gmail.com', NULL, '$2y$10$4uCG3Rzp5s6RrG6fIxrjle25mr4n0Rf18ishTALRXaNIRmX81Cgm6', NULL, '2020-10-25 15:46:03', '2020-10-25 15:46:03'),
+(9, 'Md Juyel', 'juyel.desktopit@gmail.com', NULL, '$2y$10$re3TE7DF3u0ZlutYjMoP.eKchHMbdttwRz.pS1K3MYLhKms0WkfGe', NULL, '2020-12-23 16:10:07', '2020-12-23 16:10:07');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
